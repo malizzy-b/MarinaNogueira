@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+   <!-- Fonts Google Preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    rel="stylesheet">
+    <meta charset="UTF-8"/>
+
+   <!-- Fonts --> 
+    <link href="https://fonts.googleapis.com/css2?family=Mukta&display=swap" rel="stylesheet">
+
+
+    <!-- TAILWIND Import -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
+
+    <!--AOS-->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <!-- PHOSPOR ICONS --> 
+    <script src="https://unpkg.com/phosphor-icons"></script>
+
+    <!-- Tailwind configuration -->
+    <script src="nodeapp\myapp\tailwind.config.js"></script>
+
+    <link rel="stylesheet" href="static\css\main.css">
+
+    <!--Shoelace-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.12.0/cdn/themes/light.css" />
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.12.0/cdn/shoelace.js" ></script>
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css"/>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css"/>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://www.youtube.com/iframe_api"></script>
+
+    <script>
+        var videoId = "v74vhVyU51I";
+        var apiKey = "AIzaSyBc4AC7_5OqHOspkwIE0RnRPHfWe2pD5Rk";
+
+        function inicializarVideoPlayer() {
+            var player = new YT.Player('videoPlayer', {
+                height: '315',
+                width: '100%',
+                videoId: videoId,
+                playerVars: {
+                    'autoplay': 1,    // Iniciar automaticamente
+                    'controls': 0,    // Ocultar controles do player
+                    'loop': 1,        // Repetir em loop
+                    'enablejsapi': 1,  // Habilitar API JavaScript
+                    'origin': 'http://localhost',  // URL de origem
+                    'key': apiKey      // Chave de API do YouTube
+                },
+                events: {
+                    'onReady': function (event) {
+                        // O vídeo está pronto para ser reproduzido
+                        event.target.playVideo();
+                    }
+                }
+            });
+        }
+
+        function carregarYouTubeAPI() {
+            var tag = document.createElement('script');
+            tag.src = 'https://www.youtube.com/iframe_api';
+            var firstScriptTag = document.getElementsByTagName('script')[0];
+            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+        }
+
+        window.onYouTubeIframeAPIReady = function () {
+            inicializarVideoPlayer();
+        };
+
+        $(document).ready(function () {
+            carregarYouTubeAPI();
+        });
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            // Event listener para o botão de chamada para atendimento
+            $('.chamar-atendimento').on('click', function () {
+                $.post("/chamar_atendimento", { senha_atendimento: $('#senha_atendimento').text() }, function () {
+                    location.reload(); // Recarrega a página após a chamada
+                });
+            });
+    
+            // Event listener para o botão de chamada para consulta
+            $('.chamar-consulta').on('click', function () {
+                $.post("/chamar_consulta", { senha_consulta: $('#senha_consulta').text() }, function () {
+                    location.reload(); // Recarrega a página após a chamada
+                });
+            });
+        });
+    </script>
+    
+</head>
+
+<body class="overflow-x-hidden bg-[url(svgs/fundo1.svg)] bg-background w-full bg-repeat-x bg-repeat-y min-h-screen bg-contain cover bg-no-repeat relative overflow-x-hidden flex flex-row">
+    <sl-tab-group>
+        <sl-tab slot="nav" panel="page1" class="custom-tab">Page 1</sl-tab>
+        <sl-tab slot="nav" panel="page2" class="custom-tab">Page 2</sl-tab>
+        <style>
+            sl-tab::part(base) {
+                color: var(--sl-color-neutral-0);
+                border-bottom: none
+            }
+        </style>
+
+
+        <sl-tab-panel name="page1">
+            <main class="decoration-back w-screen h-auto p-8">
+                <header class="ml-6 mt-2">
+                    <h1 class="text-2xl font-mukta decoration-4 font-bold text-white">Painel de Atendimento</h1>
+                </header>
+
+                <main class="h-auto">
+                    <!-- Conteúdo da seção de atendimento aqui -->
+                    <div class="xl:flex-row 2xl:flex-row lg:flex-row md:flex-row flex-col gap-6 container mx-auto mt-4 flex items-center justify-between mt-1.5">
+                          <div class="max-w-sm rounded overflow-hidden shadow-md mx-2 xl:w-96 xl:h-60 2xl:w-96 2xl:h-60 lg:w-96 lg:h-60 md:w-96 md:h-60 w-80 h-48 decoration-white bg-white"> 
+                             <div id="card1" class="px-8 py-4">
+                                  <h1 class="flex font-bold text-xl mb-2 place-content-center text-title">Atendimento</h1>
+                                  <p id="senha_atendimento">
+                                    {% for senha in senhas_atendimento %}
+                                        {{ senha }}{% if not loop.last %}, {% endif %}
+                                    {% endfor %}
+                                  </p>
+                              </div>
+                          </div>
+
+                          <div id="videoPlayer" class="max-w-sm rounded overflow-hidden shadow-md mx-2 xl:w-96 xl:h-80 2xl:w-96 2xl:h-80 lg:w-96 lg:h-80 md:w-96 md:h-80 w-0 h-0 decoration-white bg-white"></div>
+
+                          <div id="card3" class="max-w-sm rounded overflow-hidden shadow-md mx-2 xl:w-96 xl:h-60 2xl:w-96 2xl:h-60 lg:w-96 lg:h-60 md:w-96 md:h-60 w-80 h-48 bg-white"> 
+                            <div class="px-6 py-4">
+                                <h1 class="flex font-bold text-xl mb-2 place-content-center text-title">Consulta</h1>
+                                <p id="senha_chamadas">
+                                    {% for senha in senhas_consulta %}
+                                        {{ senha }}{% if not loop.last %}, {% endif %}
+                                    {% endfor %}
+                                </p>
+                            </div>
+                          </div>
+                     </div>
+        
+
+                    <h1 class="ml-6 mb-5 mt-5 lg:p-0 md:p-0 2xl:p-0 xl:p-0 p-4 text-2xl font-mukta decoration-4 font-bold text-white">Senhas Atendidas</h1>
+                    <div class="2xl:flex-row xl:flex-row lg:flex-row md:flex-row flex-col gap-3 container mx-auto mt-4 flex justify-center xl:p-8 lg:p-8 2xl:p-8 p-0 my-1.5">
+                      <div class="flex place-content-center max-w-sm rounded overflow-hidden shadow-md 2xl:w-96 2xl:h-16 xl:w-96 xl:h-16 lg:w-96 lg:h-16 md:w-96 md:h-16 w-72 h-16 border-white bg-background"> 
+                            <p id="senha_anterior">
+                                {% if senhas_chamadas|length > 0 %}
+                                    {{ senhas_chamadas[-1] }}
+                                {% endif %}
+                            </p>
+                      </div>
+                      <div class="flex place-content-center max-w-sm rounded overflow-hidden shadow-md 2xl:w-96 2xl:h-16 xl:w-96 xl:h-16 lg:w-96 lg:h-16 md:w-96 md:h-16 w-72 h-16 border-white bg-background"> 
+                            <p id="senha_anterior2">
+                                {% if senhas_chamadas|length > 1 %}
+                                    {{ senhas_chamadas[-2] }}
+                                {% endif %}
+                            </p>
+                      </div>
+                      <div class="flex place-content-center max-w-sm rounded overflow-hidden shadow-md 2xl:w-96 2xl:h-16 xl:w-96 xl:h-16 lg:w-96 lg:h-16 md:w-96 md:h-16 w-72 h-16 border-white bg-background"> 
+                        <p id="senha_anterior3">
+                            {% if senhas_chamadas|length > 2 %}
+                                {{ senhas_chamadas[-3] }}
+                            {% endif %}
+                        </p>
+                      </div>
+                    </div>
+
+                    <footer class="ml-6">
+                        <div>
+                            <h1 class="text-2xl 2xl:p-0 xl:p-0 lg:p-0 md:p-0 p-4 decoration-4 font-bold text-white">Tempo de Espera Aproximado</h1>
+                        </div>
+                        <div class="flex-row container mx-auto mt-4 flex float-left justify-starts space-x-8">
+                          <div class="flex-row space-x-8 content-center">
+                            <div class="rounded-full w-6 h-6 bg-lightred"></div>
+                            <p class="flex mt-[-24px] font-bold text-white">1 hora</p>
+                         </div>
+          
+                          <div class="flex-row space-x-8 content-center">
+                            <div class="rounded-full w-6 h-6 bg-lightorange"></div>
+                            <p class="flex mt-[-24px] font-bold text-white">2 horas</p>
+                          </div>
+          
+                          <div class="flex-row space-x-8 items-center">
+                            <div class="rounded-full w-6 h-6 bg-darkblue"></div>
+                            <p class="flex mt-[-24px] font-bold text-white">3 horas</p>
+                        </div>
+                        
+                        </div>
+                    </footer>
+                </main>
+            </main>
+        </sl-tab-panel>
+
+        <sl-tab-panel name="page2">
+            <main class="decoration-back w-screen h-auto justify-center items-center">
+                <div class="2xl:flex-row xl:flex-row lg:flex-row md:flex-row flex-col gap-16 container mx-auto mt-4 flex justify-center items-center p-8 mt-1.5">
+                     <div class="max-w-sm rounded overflow-hidden shadow-md mx-2 xl:w-96 xl:h-60 2xl:w-96 2xl:h-60    lg:w-96 lg:h-60 md:w-96 md:h-60 w-80 h-48 decoration-white bg-white"> 
+                        <div id="flex card1" class="px-6 py-4 flex flex-col justify-between items-center">
+                                <h1 class="flex font-bold text-xl mb-2 place-content-center text-title">Chamar Atendimento</h1>
+                                <p id="senha_atendimento"></p>
+
+                                <div class="flex">
+                                    <button class="bg-background text-white px-4 py-2 rounded text-title chamar-atendimento">Chamar</button>
+                                </div>
+                        </div>
+                     </div>
+
+
+                     <div id="card3" class="max-w-sm rounded overflow-hidden shadow-md mx-2 xl:w-96 xl:h-60 2xl:w-96 2xl:h-60 lg:w-96 lg:h-60 md:w-96 md:h-60 w-80 h-48 bg-white"> 
+                         <div class="px-6 py-4 flex flex-col justify-between items-center">
+                            <h1 class="flex font-bold text-xl mb-2 place-content-center text-title chamar-consulta">Chamar Consulta</h1>
+                            <p id="senha_consulta"></p>
+                            <div class="flex">
+                              <button class="bg-background text-white px-4 py-2 rounded text-title">Chamar</button>
+                            </div>
+                         </div>
+                     </div>                
+                </div>
+
+                <div class="flex lg:flex-row md:flex-row 2xl:flex-row xl:flex-row flex-col gap-16 container mx-auto mt-4 flex justify-center p-8 my-1.5">
+                    <div class="flex-col flex justify-between items-center max-w-sm rounded shadow-md mx-2 w-96 h-36 border-white bg-white">
+                        <h1 class="flex font-bold text-xl mb-2 place-content-center text-title">Gerar Senha</h1>
+                        <p id="senha_nova"></p>
+
+                        <div class="flex flex-row gap-3 text-title">
+                            <form method="post" action="{{ url_for('gerar_senha') }}">
+                                <input type="hidden" name="tipo_senha" value="normal">
+                                <button type="submit" class="bg-background text-white p-4 py-2 rounded text-font">Gerar</button>
+                            </form>
+                            <form method="post" action="{{ url_for('gerar_senha') }}">
+                                <input type="hidden" name="tipo_senha" value="preferencial">
+                                <button type="submit" class="bg-background text-white p-4 py-2 rounded text-font">Gerar preferencial</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="flex-col flex justify-between items-center max-w-sm rounded shadow-md mx-2 w-96 h-36 border-white bg-white">
+                        <h1 class="flex font-bold text-xl mb-2 place-content-center text-title">Próximas Senhas</h1>
+                        <ul id="lista_senhas_geradas">
+                            {% for senha in senhas_geradas %}
+                                <li>{{ senha }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+         </main>
+         </main>
+        </sl-tab-panel>
+    </sl-tab-group>
+
+    <script>
+        $(document).ready(function () {
+            // Event listener para o botão de chamada para atendimento
+            $('.chamar-atendimento').on('click', function () {
+                $.post("/chamar_atendimento", { senha_atendimento: $('#senha_atendimento').text() }, function () {
+                    location.reload(); // Recarrega a página após a chamada
+                });
+            });
+    
+            // Event listener para o botão de chamada para consulta
+            $('.chamar-consulta').on('click', function () {
+                $.post("/chamar_consulta", { senha_consulta: $('#senha_consulta').text() }, function () {
+                    location.reload(); // Recarrega a página após a chamada
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>
