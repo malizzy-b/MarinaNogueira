@@ -1,15 +1,14 @@
 /* Estilos Globais */
 body {
     overflow-x: hidden;
-    background: url(svgs/fundo1.svg);
-    background-repeat: no-repeat;
+    background-image: url(svgs/fundo1.svg);
     background-repeat: x;
     background-repeat: y;
     background-size: contain;
     background-position: cover;
-    min-height: 100vh;
     font-family: 'Mukta', sans-serif;
 }
+
 
 /* Estilos para os tabs */
 sl-tab::part(base) {
@@ -39,9 +38,6 @@ sl-tab::part(base) {
     background-color: #4277FF;
 }
 
-.text-white {
-    color: #fff;
-}
 
 .px-4 {
     padding-left: 1rem;
@@ -95,18 +91,23 @@ header {
 }
 
 .decoration-4 {
-    border-bottom: 4px solid #0099BA;
+    border-bottom: 2px solid #fff;
 }
 
 .text-white {
     color: #fff;
 }
 
-/* Estilos para o conteúdo da seção de atendimento */
-.container {
-    margin-left: auto;
-    margin-right: auto;
+.text-darkblue {
+    color: #16009E;
 }
+
+#button {
+    margin-bottom: -3px;
+}
+
+/* Estilos para o conteúdo da seção de atendimento */
+
 
 /* Estilos para os cards dentro da seção de atendimento */
 #card1,
@@ -134,7 +135,7 @@ footer {
 }
 
 .space-x-8 {
-    margin-right: 2rem;
+    margin-right: 4px;
 }
 
 .items-center {
@@ -154,4 +155,24 @@ footer {
 /* Estilos para a classe darkblue */
 .bg-darkblue {
     background-color: #16009E;
+}
+.button {
+    background-color: #4277FF;
+}
+
+#lista_senhas_geradas {
+    font-style: #16009E;
+}
+
+#lista_senhas_geradas,
+#senha_anterior3,
+#senha_anterior2,
+#senha_anterior,
+#senha_chamadas,
+#senha_consulta,
+#senha_atendimento {
+    color: #000;
+    font-weight: bold;
+    font-size: 26px;
+    font-family: "mukta";
 }

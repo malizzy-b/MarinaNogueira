@@ -88,17 +88,15 @@
 
     <script>
         $(document).ready(function () {
-            // Event listener para o botão de chamada para atendimento
             $('.chamar-atendimento').on('click', function () {
                 $.post("/chamar_atendimento", { senha_atendimento: $('#senha_atendimento').text() }, function () {
-                    location.reload(); // Recarrega a página após a chamada
+                    location.reload(); 
                 });
             });
     
-            // Event listener para o botão de chamada para consulta
-            $('.chamar-consulta').on('click', function () {
-                $.post("/chamar_consulta", { senha_consulta: $('#senha_consulta').text() }, function () {
-                    location.reload(); // Recarrega a página após a chamada
+            $('.chamar-comum').on('click', function () {
+                $.post("/chamar_comum", { senha_comum: $('#senha_comum').text() }, function () {
+                    location.reload(); 
                 });
             });
         });
@@ -108,8 +106,8 @@
 
 <body class="overflow-x-hidden bg-[url(svgs/fundo1.svg)] bg-background w-full bg-repeat-x bg-repeat-y min-h-screen bg-contain cover bg-no-repeat relative overflow-x-hidden flex flex-row">
     <sl-tab-group>
-        <sl-tab slot="nav" panel="page1" class="custom-tab">Page 1</sl-tab>
-        <sl-tab slot="nav" panel="page2" class="custom-tab">Page 2</sl-tab>
+        <sl-tab slot="nav" panel="page1" class="custom-tab">Painel</sl-tab>
+        <sl-tab slot="nav" panel="page2" class="custom-tab">Controle</sl-tab>
         <style>
             sl-tab::part(base) {
                 color: var(--sl-color-neutral-0);
@@ -125,12 +123,11 @@
                 </header>
 
                 <main class="h-auto">
-                    <!-- Conteúdo da seção de atendimento aqui -->
                     <div class="xl:flex-row 2xl:flex-row lg:flex-row md:flex-row flex-col gap-6 container mx-auto mt-4 flex items-center justify-between mt-1.5">
-                          <div class="max-w-sm rounded overflow-hidden shadow-md mx-2 xl:w-96 xl:h-60 2xl:w-96 2xl:h-60 lg:w-96 lg:h-60 md:w-96 md:h-60 w-80 h-48 decoration-white bg-white"> 
+                          <div class="max-w-sm rounded overflow-hidden shadow-md xl:w-96 xl:h-60 2xl:w-96 2xl:h-60 lg:w-96 lg:h-60 md:w-96 md:h-60 w-80 h-48 decoration-white bg-white"> 
                              <div id="card1" class="px-8 py-4">
-                                  <h1 class="flex font-bold text-xl mb-2 place-content-center text-title">Atendimento</h1>
-                                  <p id="senha_atendimento">
+                                  <h1 class="flex font-bold text-xl mb-2 place-content-center text-title">Preferencial</h1>
+                                  <p id="senha_atendimento" class="flex items-center justify-center place-content-center mt-16">
                                     {% for senha in senhas_atendimento %}
                                         {{ senha }}{% if not loop.last %}, {% endif %}
                                     {% endfor %}
@@ -138,13 +135,13 @@
                               </div>
                           </div>
 
-                          <div id="videoPlayer" class="max-w-sm rounded overflow-hidden shadow-md mx-2 xl:w-96 xl:h-80 2xl:w-96 2xl:h-80 lg:w-96 lg:h-80 md:w-96 md:h-80 w-0 h-0 decoration-white bg-white"></div>
+                          <div id="videoPlayer" class="max-w-sm rounded overflow-hidden shadow-md xl:w-96 xl:h-80 2xl:w-96 2xl:h-80 lg:w-96 lg:h-80 md:w-96 md:h-80 w-0 h-0 decoration-white bg-white"></div>
 
-                          <div id="card3" class="max-w-sm rounded overflow-hidden shadow-md mx-2 xl:w-96 xl:h-60 2xl:w-96 2xl:h-60 lg:w-96 lg:h-60 md:w-96 md:h-60 w-80 h-48 bg-white"> 
+                          <div id="card3" class="max-w-sm rounded overflow-hidden shadow-md xl:w-96 xl:h-60 2xl:w-96 2xl:h-60 lg:w-96 lg:h-60 md:w-96 md:h-60 w-80 h-48 bg-white"> 
                             <div class="px-6 py-4">
-                                <h1 class="flex font-bold text-xl mb-2 place-content-center text-title">Consulta</h1>
-                                <p id="senha_chamadas">
-                                    {% for senha in senhas_consulta %}
+                                <h1 class="flex font-bold text-xl mb-2 place-content-center text-title">Comum</h1>
+                                <p id="senha_chamadas" class="flex items-center justify-center place-content-center mt-16">
+                                    {% for senha in senhas_comum %}
                                         {{ senha }}{% if not loop.last %}, {% endif %}
                                     {% endfor %}
                                 </p>
@@ -153,7 +150,7 @@
                      </div>
         
 
-                    <h1 class="ml-6 mb-5 mt-5 lg:p-0 md:p-0 2xl:p-0 xl:p-0 p-4 text-2xl font-mukta decoration-4 font-bold text-white">Senhas Atendidas</h1>
+                    <h1 class="ml-6 mb-5 mt-5 lg:p-0 md:p-0 2xl:p-0 xl:p-0 p-4 text-2xl font-mukta font-bold text-white">Senhas Atendidas</h1>
                     <div class="2xl:flex-row xl:flex-row lg:flex-row md:flex-row flex-col gap-3 container mx-auto mt-4 flex justify-center xl:p-8 lg:p-8 2xl:p-8 p-0 my-1.5">
                       <div class="flex place-content-center max-w-sm rounded overflow-hidden shadow-md 2xl:w-96 2xl:h-16 xl:w-96 xl:h-16 lg:w-96 lg:h-16 md:w-96 md:h-16 w-72 h-16 border-white bg-background"> 
                             <p id="senha_anterior">
@@ -162,6 +159,9 @@
                                 {% endif %}
                             </p>
                       </div>
+                    
+                      <input type="hidden" name="senhas_chamadas_antigas" value="{{ ','.join(senhas_chamadas_antigas) }}">
+
                       <div class="flex place-content-center max-w-sm rounded overflow-hidden shadow-md 2xl:w-96 2xl:h-16 xl:w-96 xl:h-16 lg:w-96 lg:h-16 md:w-96 md:h-16 w-72 h-16 border-white bg-background"> 
                             <p id="senha_anterior2">
                                 {% if senhas_chamadas|length > 1 %}
@@ -180,22 +180,22 @@
 
                     <footer class="ml-6">
                         <div>
-                            <h1 class="text-2xl 2xl:p-0 xl:p-0 lg:p-0 md:p-0 p-4 decoration-4 font-bold text-white">Tempo de Espera Aproximado</h1>
+                            <h1 class="text-2xl 2xl:p-0 xl:p-0 lg:p-0 md:p-0 p-4 font-bold text-white">Tempo de Espera Aproximado</h1>
                         </div>
                         <div class="flex-row container mx-auto mt-4 flex float-left justify-starts space-x-8">
-                          <div class="flex-row space-x-8 content-center">
+                          <div class="flex-row space-x-4 content-center">
                             <div class="rounded-full w-6 h-6 bg-lightred"></div>
-                            <p class="flex mt-[-24px] font-bold text-white">1 hora</p>
+                            <p class="flex font-bold text-white">1 hora</p>
                          </div>
           
-                          <div class="flex-row space-x-8 content-center">
+                          <div class="flex-row space-x-4 content-center">
                             <div class="rounded-full w-6 h-6 bg-lightorange"></div>
-                            <p class="flex mt-[-24px] font-bold text-white">2 horas</p>
+                            <p class="flex font-bold text-white">2 horas</p>
                           </div>
           
-                          <div class="flex-row space-x-8 items-center">
+                          <div class="flex-row space-x-4 items-center">
                             <div class="rounded-full w-6 h-6 bg-darkblue"></div>
-                            <p class="flex mt-[-24px] font-bold text-white">3 horas</p>
+                            <p class="flex font-bold text-white">3 horas</p>
                         </div>
                         
                         </div>
@@ -207,9 +207,9 @@
         <sl-tab-panel name="page2">
             <main class="decoration-back w-screen h-auto justify-center items-center">
                 <div class="2xl:flex-row xl:flex-row lg:flex-row md:flex-row flex-col gap-16 container mx-auto mt-4 flex justify-center items-center p-8 mt-1.5">
-                     <div class="max-w-sm rounded overflow-hidden shadow-md mx-2 xl:w-96 xl:h-60 2xl:w-96 2xl:h-60    lg:w-96 lg:h-60 md:w-96 md:h-60 w-80 h-48 decoration-white bg-white"> 
-                        <div id="flex card1" class="px-6 py-4 flex flex-col justify-between items-center">
-                                <h1 class="flex font-bold text-xl mb-2 place-content-center text-title">Chamar Atendimento</h1>
+                     <div class="max-w-sm rounded overflow-hidden shadow-md xl:w-96 xl:h-60 2xl:w-96 2xl:h-60    lg:w-96 lg:h-60 md:w-96 md:h-60 w-80 h-48 decoration-white bg-white"> 
+                        <div id="flex card1" class="px-6 py-4 flex gap-8 flex-col justify-between items-center">
+                                <h1 class="flex font-bold text-xl mb-2 place-content-center text-title">Chamar Preferencal</h1>
                                 <p id="senha_atendimento"></p>
 
                                 <div class="flex">
@@ -219,38 +219,38 @@
                      </div>
 
 
-                     <div id="card3" class="max-w-sm rounded overflow-hidden shadow-md mx-2 xl:w-96 xl:h-60 2xl:w-96 2xl:h-60 lg:w-96 lg:h-60 md:w-96 md:h-60 w-80 h-48 bg-white"> 
-                         <div class="px-6 py-4 flex flex-col justify-between items-center">
-                            <h1 class="flex font-bold text-xl mb-2 place-content-center text-title chamar-consulta">Chamar Consulta</h1>
-                            <p id="senha_consulta"></p>
+                     <div id="card3" class="max-w-sm rounded overflow-hidden shadow-md xl:w-96 xl:h-60 2xl:w-96 2xl:h-60 lg:w-96 lg:h-60 md:w-96 md:h-60 w-80 h-48 bg-white"> 
+                         <div class="px-6 py-4 flex flex-col gap-8 justify-between items-center">
+                            <h1 class="flex font-bold text-xl mb-2 place-content-center text-title chamar-comum">Chamar comum</h1>
+                            <p id="senha_comum"></p>
                             <div class="flex">
-                              <button class="bg-background text-white px-4 py-2 rounded text-title">Chamar</button>
+                              <button class="bg-background text-white px-4 py-2 rounded mb-2 text-title chamar-comum">Chamar</button>
                             </div>
                          </div>
                      </div>                
                 </div>
 
-                <div class="flex lg:flex-row md:flex-row 2xl:flex-row xl:flex-row flex-col gap-16 container mx-auto mt-4 flex justify-center p-8 my-1.5">
-                    <div class="flex-col flex justify-between items-center max-w-sm rounded shadow-md mx-2 w-96 h-36 border-white bg-white">
-                        <h1 class="flex font-bold text-xl mb-2 place-content-center text-title">Gerar Senha</h1>
+                <div class="flex lg:flex-row md:flex-row 2xl:flex-row xl:flex-row flex-col gap-16 container lg:ml-9 md:ml-9 mt-4 flex justify-center lg:p-1 md:p-1 p-5 my-1.5">
+                    <div class="flex-col flex justify-between gap-6 items-center max-w-sm rounded shadow-md xl:w-96 xl:h-60 2xl:w-96 2xl:h-60 lg:w-96 lg:h-60 md:w-96 md:h-60 w-80 h-48 w-80 h-36 border-white bg-white">
+                        <h1 class="flex font-bold text-xl mb-2 place-content-center mt-4 text-title">Gerar Senha</h1>
                         <p id="senha_nova"></p>
 
-                        <div class="flex flex-row gap-3 text-title">
+                        <div class="flex flex-row gap-3 text-title mb-6">
                             <form method="post" action="{{ url_for('gerar_senha') }}">
                                 <input type="hidden" name="tipo_senha" value="normal">
-                                <button type="submit" class="bg-background text-white p-4 py-2 rounded text-font">Gerar</button>
+                                <button type="submit" class="button bg-blue-600 text-white p-4 py-2 rounded text-font gerar-senha" data-tipo-senha="normal">Gerar</button>
                             </form>
                             <form method="post" action="{{ url_for('gerar_senha') }}">
                                 <input type="hidden" name="tipo_senha" value="preferencial">
-                                <button type="submit" class="bg-background text-white p-4 py-2 rounded text-font">Gerar preferencial</button>
+                                <button type="submit" class="bg-blue-600 text-white p-4 py-2 rounded text-font">Gerar preferencial</button>
                             </form>
                         </div>
                     </div>
 
-                    <div class="flex-col flex justify-between items-center max-w-sm rounded shadow-md mx-2 w-96 h-36 border-white bg-white">
-                        <h1 class="flex font-bold text-xl mb-2 place-content-center text-title">Próximas Senhas</h1>
+                    <div class="flex-col flex justify-between items-center max-w-sm rounded overflow-hidden lg:p-4 md:p-4 p-3 xl:w-96 xl:h-60 2xl:w-96 2xl:h-60 lg:w-96 lg:h-60 md:w-96 md:h-60 w-80 h-48 w-80 h-36 border-white">
+                        <h1 class="flex font-bold text-xl mb-2 place-content-center text-title text-darkblue">Próximas Senhas</h1>
                         <ul id="lista_senhas_geradas">
-                            {% for senha in senhas_geradas %}
+                            {% for senha in proximas_senhas_atendimento + proximas_senhas_comum %}
                                 <li>{{ senha }}</li>
                             {% endfor %}
                         </ul>
@@ -261,23 +261,42 @@
         </sl-tab-panel>
     </sl-tab-group>
 
-    <script>
-        $(document).ready(function () {
-            // Event listener para o botão de chamada para atendimento
-            $('.chamar-atendimento').on('click', function () {
-                $.post("/chamar_atendimento", { senha_atendimento: $('#senha_atendimento').text() }, function () {
-                    location.reload(); // Recarrega a página após a chamada
-                });
-            });
-    
-            // Event listener para o botão de chamada para consulta
-            $('.chamar-consulta').on('click', function () {
-                $.post("/chamar_consulta", { senha_consulta: $('#senha_consulta').text() }, function () {
-                    location.reload(); // Recarrega a página após a chamada
-                });
+<script>
+    $(document).ready(function () {
+        $('.chamar-atendimento').on('click', function () {
+            $.post("/chamar_atendimento", function (data) {
+                updateSenhas(data, 'atendimento'); 
             });
         });
-    </script>
+
+        $('.chamar-comum').on('click', function () {
+            $.post("/chamar_comum", function (data) {
+                updateSenhas(data, 'comum'); 
+            });
+        });
+
+        function updateSenhas(data, tipo) {
+            $('#senha_atendimento, #senha_comum, #senha_anterior, #senha_anterior2, #senha_anterior3').text('');
+
+            if (tipo === 'atendimento') {
+                $('#senha_atendimento').text(data.senha_atendimento);
+            } else if (tipo === 'comum') {
+                $('#senha_comum').text(data.senha_comum);
+            }
+
+            if (senhas_chamadas.length > 0) {
+                $('#senha_anterior').text(senhas_chamadas[senhas_chamadas.length - 1]);
+                if (senhas_chamadas.length > 1) {
+                    $('#senha_anterior2').text(senhas_chamadas[senhas_chamadas.length - 2]);
+                }
+                if (senhas_chamadas.length > 2) {
+                    $('#senha_anterior3').text(senhas_chamadas[senhas_chamadas.length - 3]);
+                }
+            }
+        }
+    });
+</script>
+
 </body>
 
 </html>
